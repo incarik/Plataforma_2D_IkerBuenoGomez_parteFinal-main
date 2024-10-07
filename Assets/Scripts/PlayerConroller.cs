@@ -40,6 +40,11 @@ public class PlayerConroller : MonoBehaviour
        {
          Attack();
        }
+
+       if(Input.GetKeyDown(KeyCode.P))
+       {
+        GameManager.instance.Pause();
+       }
     }
 
     // Update is called once per frame
@@ -75,6 +80,7 @@ public class PlayerConroller : MonoBehaviour
         }
             
             characterAnimator.SetBool("IsRunning", true);
+            SoundManager.instance.PlaySFX(SoundManager.instance.runAudio);
        }
 
        else if(horizontalInput > 0)
@@ -92,6 +98,8 @@ public class PlayerConroller : MonoBehaviour
        {
         characterAnimator.SetBool("IsRunning", false);
        }
+
+       
     }
 
     void Attack()
@@ -108,6 +116,7 @@ public class PlayerConroller : MonoBehaviour
 
         // Iniciamos la lógica de ataque y daño en ambos casos
         StartCoroutine(AttackAnimation()); 
+        SoundManager.instance.PlaySFX(SoundManager.instance.swordAudio);
     }
 
     IEnumerator AttackAnimation()
@@ -139,12 +148,13 @@ public class PlayerConroller : MonoBehaviour
         
      characterRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); 
      characterAnimator.SetBool("IsJumping", true);
+     SoundManager.instance.PlaySFX(SoundManager.instance.jumpAudio);
         
     }
 
-    void TakeDamage()
+    void TakeDamage(int damage)
         {
-            healthPoints--;
+            healthPoints -= damage;
                 
             if(healthPoints <= 0)
             {
@@ -154,6 +164,7 @@ public class PlayerConroller : MonoBehaviour
             else
             {
                 characterAnimator.SetTrigger("IsHurt");
+                SoundManager.instance.PlaySFX(SoundManager.instance.hitAudio);
             }
         }
     
@@ -161,6 +172,7 @@ public class PlayerConroller : MonoBehaviour
     {
         characterAnimator.SetTrigger("IsDeath");
         Destroy(gameObject, 1f);
+        SoundManager.instance.PlaySFX(SoundManager.instance.deathAudio);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -169,7 +181,7 @@ public class PlayerConroller : MonoBehaviour
         {
             //characterAnimator.SetTrigger("IsHurt");
             //Destroy(gameObject, 1f);
-            TakeDamage();
+            TakeDamage(3);
         }
     }
 
