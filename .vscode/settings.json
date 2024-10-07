@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Plataforma_2D_IkerBuenoGomez_parteFinal.sln"
+    "dotnet.defaultSolution": "Plataforma_2D_IkerBuenoGomez_parteFinal-main.sln"
 }
