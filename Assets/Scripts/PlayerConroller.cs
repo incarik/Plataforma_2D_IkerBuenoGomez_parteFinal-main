@@ -14,6 +14,7 @@ public class PlayerConroller : MonoBehaviour
     private bool isAttacking;
     [SerializeField] private Transform attackHitBox;
     [SerializeField] private float attackRadius = 1;
+    private AudioSource _audioSource;
 
     void Awake()
     {
@@ -80,7 +81,7 @@ public class PlayerConroller : MonoBehaviour
         }
             
             characterAnimator.SetBool("IsRunning", true);
-            SoundManager.instance.PlaySFX(SoundManager.instance.runAudio);
+            SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.runAudio);
        }
 
        else if(horizontalInput > 0)
@@ -116,7 +117,7 @@ public class PlayerConroller : MonoBehaviour
 
         // Iniciamos la lógica de ataque y daño en ambos casos
         StartCoroutine(AttackAnimation()); 
-        SoundManager.instance.PlaySFX(SoundManager.instance.swordAudio);
+        SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.swordAudio);
     }
 
     IEnumerator AttackAnimation()
@@ -148,7 +149,7 @@ public class PlayerConroller : MonoBehaviour
         
      characterRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); 
      characterAnimator.SetBool("IsJumping", true);
-     SoundManager.instance.PlaySFX(SoundManager.instance.jumpAudio);
+     SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.jumpAudio);
         
     }
 
@@ -158,13 +159,13 @@ public class PlayerConroller : MonoBehaviour
                 
             if(healthPoints <= 0)
             {
-                Die();
+                Die(); 
             }
 
             else
             {
                 characterAnimator.SetTrigger("IsHurt");
-                SoundManager.instance.PlaySFX(SoundManager.instance.hitAudio);
+                SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.hitAudio);
             }
         }
     
@@ -172,7 +173,7 @@ public class PlayerConroller : MonoBehaviour
     {
         characterAnimator.SetTrigger("IsDeath");
         Destroy(gameObject, 1f);
-        SoundManager.instance.PlaySFX(SoundManager.instance.deathAudio);
+        SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.deathAudio);
     }
 
     void OnCollisionEnter2D(Collision2D collision)

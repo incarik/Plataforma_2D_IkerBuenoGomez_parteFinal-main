@@ -15,7 +15,7 @@ public class Coin : MonoBehaviour
 
             Destroy(gameObject);
 
-            SoundManager.instance.PlaySFX(SoundManager.instance.coinAudio);
+            SoundManager.instance.PlaySFX(SoundManager.instance._audioSource ,SoundManager.instance.coinAudio);
         }
     }
 
