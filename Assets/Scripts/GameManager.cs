@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     private int coins = 0;
     private bool isPaused;
+    [SerializeField] GameObject _pauseCanvas;
 
     void Awake()
      {
@@ -27,11 +28,13 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 0;
             isPaused = true;
+            _pauseCanvas.SetActive(true);
         }
         else
         {
             Time.timeScale = 1;
             isPaused = false;
+            _pauseCanvas.SetActive(false);
         }
      }
    public void AddCoin()
