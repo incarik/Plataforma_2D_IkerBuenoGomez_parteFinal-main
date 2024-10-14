@@ -52,7 +52,7 @@ public class PlayerConroller : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(isAttacking)
+       /* if(isAttacking)
         {
             if(horizontalInput == 0)
             {
@@ -62,7 +62,9 @@ public class PlayerConroller : MonoBehaviour
         else 
         {
             characterRigidbody.velocity = new Vector2(horizontalInput  * characterSpeed, characterRigidbody.velocity.y);
-        }
+        }*/
+
+        characterRigidbody.velocity = new Vector2(horizontalInput * characterSpeed, characterRigidbody.velocity.y);
         
     }
 
@@ -70,7 +72,14 @@ public class PlayerConroller : MonoBehaviour
     void Moviment()
     {
     
-     horizontalInput = Input.GetAxis("Horizontal");
+        if(isAttacking && horizontalInput == 0)
+        {
+            horizontalInput = 0;
+        }
+        else
+        {
+            horizontalInput = Input.GetAxis("Horizontal");
+        }
         
 
        if(horizontalInput < 0)
@@ -82,18 +91,17 @@ public class PlayerConroller : MonoBehaviour
         }
             
             characterAnimator.SetBool("IsRunning", true);
-            SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.runAudio);
+            //SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.runAudio);
        }
 
        else if(horizontalInput > 0)
        {
-
-        if(!isAttacking)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
+            if(!isAttacking)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
         
-        characterAnimator.SetBool("IsRunning", true);
+            characterAnimator.SetBool("IsRunning", true);
        }
 
        else
