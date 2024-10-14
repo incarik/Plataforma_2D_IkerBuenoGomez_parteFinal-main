@@ -39,7 +39,8 @@ public class PlayerConroller : MonoBehaviour
       
        if(Input.GetButtonDown("Fire1") && GroundSensor.isGrounded && !isAttacking)
        {
-         Attack();
+         //Attack();
+         StartAttack();
        }
 
        if(Input.GetKeyDown(KeyCode.P))
@@ -103,7 +104,7 @@ public class PlayerConroller : MonoBehaviour
        
     }
 
-    void Attack()
+    /*void Attack()
     {
         // Aquí se activan las animaciones según si el personaje se está moviendo o no
         if (horizontalInput == 0)
@@ -141,6 +142,33 @@ public class PlayerConroller : MonoBehaviour
 
         yield return new WaitForSeconds(0.16f);
 
+        isAttacking = false;
+    }*/
+
+    void StartAttack()
+    {
+        isAttacking = true;
+        characterAnimator.SetTrigger("Attack");
+    }
+
+    void Attack()
+    {
+        Collider2D[] collider = Physics2D.OverlapCircleAll(attackHitBox.position, attackRadius); 
+        foreach(Collider2D enemy in collider)
+        {
+            if(enemy.gameObject.CompareTag("Mimico"))
+            {
+                //Destroy(enemy.gameObject);
+                Rigidbody2D enemyRigidbody = enemy.GetComponent<Rigidbody2D>();
+                enemyRigidbody.AddForce(transform.right + transform.up * 2, ForceMode2D.Impulse);
+                Enemy enemyScript = enemy.GetComponent<Enemy>();
+                enemyScript.TakeDamage();
+            }
+        }
+    }
+
+    void EndAttack()
+    {
         isAttacking = false;
     }
 
