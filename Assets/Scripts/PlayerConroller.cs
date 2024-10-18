@@ -209,7 +209,20 @@ public class PlayerConroller : MonoBehaviour
                 SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.hitAudio);
             }
         }
-    
+
+    public void IncreaseHealth(int amount)
+    {
+    if (_currentHealth < _maxHealth)
+    {
+        _currentHealth += amount;
+        if (_currentHealth > _maxHealth) // Asegúrate de no superar el máximo
+        {
+            _currentHealth = _maxHealth;
+        }
+
+        GameManager.instance.UpdateHealthBar(_currentHealth); // Actualiza la barra de salud
+    }
+    }
     void Die()
     {
         characterAnimator.SetTrigger("IsDeath");
