@@ -10,7 +10,8 @@ public class PlayerConroller : MonoBehaviour
     [SerializeField]private float characterSpeed = 4.5f;
     [SerializeField] private float jumpForce = 5;
     public static Animator characterAnimator;
-    [SerializeField] private int healthPoints = 5;
+    [SerializeField] private int _maxHealth = 5;
+    [SerializeField] private int _currentHealth;
     private bool isAttacking;
     [SerializeField] private Transform attackHitBox;
     [SerializeField] private float attackRadius = 1;
@@ -25,6 +26,8 @@ public class PlayerConroller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _currentHealth = _maxHealth;
+        GameManager.instance.SetHealthBar(_maxHealth);
         //characterRigidbody.AddForce(Vector2.up * jumpForce);
     }
 
@@ -191,9 +194,11 @@ public class PlayerConroller : MonoBehaviour
 
     void TakeDamage(int damage)
         {
-            healthPoints -= damage;
+            _currentHealth -= damage;
+
+            GameManager.instance.UpdateHealthBar(_currentHealth);
                 
-            if(healthPoints <= 0)
+            if(_currentHealth <= 0)
             {
                 Die(); 
             }
@@ -218,7 +223,7 @@ public class PlayerConroller : MonoBehaviour
         {
             //characterAnimator.SetTrigger("IsHurt");
             //Destroy(gameObject, 1f);
-            TakeDamage(3);
+            TakeDamage(1);
         }
     }
 

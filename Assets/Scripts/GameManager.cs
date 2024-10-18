@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     private bool pauseAnimation;
     private int starsCollected = 0;
     [SerializeField] GameObject[] estrellasActivadas;
+    [SerializeField]private Slider _healthBar;
 
     void Awake()
      {
@@ -64,6 +65,12 @@ public class GameManager : MonoBehaviour
     _coinText.text = coins.ToString();
    }
 
+   public void SetHealthBar(int maxHealth)
+   {
+    _healthBar.maxValue = maxHealth;
+    _healthBar.value = maxHealth;
+   }
+
    public void AddStar()
    {
     starsCollected++;
@@ -72,5 +79,10 @@ public class GameManager : MonoBehaviour
     {
         estrellasActivadas[starsCollected - 1].SetActive(true);
     }
+   }
+
+   public void UpdateHealthBar(int health)
+   {
+        _healthBar.value = health;
    }
 }
