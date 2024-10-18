@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _pauseCanvas;
     [SerializeField] Text _coinText;
     private Animator _pausePanelAnimator;
+    private bool pauseAnimation;
 
     void Awake()
      {
@@ -29,26 +30,29 @@ public class GameManager : MonoBehaviour
 
      public void Pause()
      {
-        if(!isPaused)
+        if(!isPaused && !pauseAnimation)
         {
             Time.timeScale = 0;
             isPaused = true;
             _pauseCanvas.SetActive(true);
         }
-        else
+        else if(isPaused && !pauseAnimation)
         {
            StartCoroutine(ClosePauseAnimation());
+           pauseAnimation = true;
         }
 
     IEnumerator ClosePauseAnimation()
     {
         _pausePanelAnimator.SetBool("Close",true);
 
-        yield return new WaitForSeconds(0.10f);
+        yield return new WaitForSecondsRealtime(0.50f);
 
         Time.timeScale = 1;
             isPaused = false;
             _pauseCanvas.SetActive(false);
+
+            pauseAnimation = false;
     }
      }
 
