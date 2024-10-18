@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text _coinText;
     private Animator _pausePanelAnimator;
     private bool pauseAnimation;
+    private int starsCollected = 0;
+    [SerializeField] GameObject[] estrellasActivadas;
 
     void Awake()
      {
@@ -64,7 +66,11 @@ public class GameManager : MonoBehaviour
 
    public void AddStar()
    {
-    
+    starsCollected++;
+
+    if (starsCollected - 1 < estrellasActivadas.Length)
+    {
+        estrellasActivadas[starsCollected - 1].SetActive(true);
+    }
    }
 }
-
