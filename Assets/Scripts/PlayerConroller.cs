@@ -21,6 +21,7 @@ public class PlayerConroller : MonoBehaviour
     {
         characterRigidbody = GetComponent<Rigidbody2D>();
         characterAnimator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -92,7 +93,7 @@ public class PlayerConroller : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(0, 180, 0); //sirve para girar al personaje de una manera compleja
         }
-            
+            SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.runAudio);
             characterAnimator.SetBool("IsRunning", true);
             //SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.runAudio);
        }
@@ -165,6 +166,7 @@ public class PlayerConroller : MonoBehaviour
     void Attack()
     {
         Collider2D[] collider = Physics2D.OverlapCircleAll(attackHitBox.position, attackRadius); 
+        SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.swordAudio);
         foreach(Collider2D enemy in collider)
         {
             if(enemy.gameObject.CompareTag("Mimico"))
@@ -223,12 +225,19 @@ public class PlayerConroller : MonoBehaviour
         GameManager.instance.UpdateHealthBar(_currentHealth); // Actualiza la barra de salud
     }
     }
-    void Die()
-    {
-        characterAnimator.SetTrigger("IsDeath");
-        Destroy(gameObject, 1f);
-        SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.deathAudio);
-    }
+   void Die()
+        {
+            
+            characterAnimator.SetTrigger("IsDeath");
+            SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.deathAudio);
+            StartCoroutine(WaitAndLoadGameOver());
+        }
+
+        IEnumerator WaitAndLoadGameOver()
+        {
+            yield return new WaitForSeconds(1f);
+            GameManager.instance.SceneLoader("Game Over");
+        }
 
     void OnCollisionEnter2D(Collision2D collision)
     {

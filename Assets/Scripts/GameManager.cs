@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
 
+        Time.timeScale = 1;
+
         _pausePanelAnimator = _pauseCanvas.GetComponentInChildren<Animator>();
      }
 

@@ -335,7 +335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2651325818591691908, guid: e8cf4e6152ec5c443bf9f616cfe95714, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: ' Main Menu'
+      value: Main Menu
       objectReference: {fileID: 0}
     - target: {fileID: 2651325818591691908, guid: e8cf4e6152ec5c443bf9f616cfe95714, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
