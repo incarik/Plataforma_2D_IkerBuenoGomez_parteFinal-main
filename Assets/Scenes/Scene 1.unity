@@ -1351,7 +1351,7 @@ MonoBehaviour:
   deathAudio: {fileID: 8300000, guid: 540114eb4898f0747a4ca21844830c2c, type: 3}
   swordAudio: {fileID: 8300000, guid: 46abb4e46cb683741afaebbadb640138, type: 3}
   runAudio: {fileID: 0}
-  mimikAudio: {fileID: 0}
+  mimikAudio: {fileID: 8300000, guid: 972fec1267300b84097818d9766b8e8a, type: 3}
   audios: []
 --- !u!4 &341281089
 Transform:

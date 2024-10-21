@@ -35,7 +35,7 @@ public class PlayerConroller : MonoBehaviour
     void Update()
     {
         Moviment();
-
+        
         if(Input.GetButtonDown("Jump") && GroundSensor.isGrounded && !isAttacking)
        {
          Jump();
@@ -93,7 +93,6 @@ public class PlayerConroller : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(0, 180, 0); //sirve para girar al personaje de una manera compleja
         }
-            SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.runAudio);
             characterAnimator.SetBool("IsRunning", true);
             //SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.runAudio);
        }
