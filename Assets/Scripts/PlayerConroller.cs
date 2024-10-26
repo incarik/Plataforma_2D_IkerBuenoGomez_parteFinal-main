@@ -248,6 +248,16 @@ public class PlayerConroller : MonoBehaviour
         }
     }
 
+     void OnTriggerEnter2D(Collider2D other)
+    {
+        // Verificar si el objeto con el que colisiona tiene el tag "Limites"
+        if (other.CompareTag("limites"))
+        {
+            // Cargar la escena de Game Over
+            GameManager.instance.SceneLoader("Game Over");
+        }
+    }
+
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
