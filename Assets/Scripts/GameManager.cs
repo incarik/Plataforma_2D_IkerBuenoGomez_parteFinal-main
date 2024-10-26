@@ -12,10 +12,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _pauseCanvas;
     [SerializeField] Text _coinText;
     private Animator _pausePanelAnimator;
+    [SerializeField] GameObject _victoryCanvas;
     private bool pauseAnimation;
     private int starsCollected = 0;
     [SerializeField] GameObject[] estrellasActivadas;
     [SerializeField]private Slider _healthBar;
+    [SerializeField] private AudioClip victoryClip;
 
     void Awake()
      {
@@ -30,6 +32,7 @@ public class GameManager : MonoBehaviour
         }
 
         Time.timeScale = 1;
+        _victoryCanvas.SetActive(false);
 
         _pausePanelAnimator = _pauseCanvas.GetComponentInChildren<Animator>();
      }
@@ -82,6 +85,17 @@ public class GameManager : MonoBehaviour
     {
         estrellasActivadas[starsCollected - 1].SetActive(true);
     }
+
+     if (starsCollected >= 4)
+        {
+            _victoryCanvas.SetActive(true);
+            if (bgmManager != null && victoryClip != null)
+            {
+                bgmManager.PlayBGM(victoryClip);
+            }
+
+            Time.timeScale = 0;
+        }
    }
 
    public void UpdateHealthBar(int health)
