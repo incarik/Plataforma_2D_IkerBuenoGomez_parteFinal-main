@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject[] estrellasActivadas;
     [SerializeField]private Slider _healthBar;
     [SerializeField] private AudioClip victoryClip;
+    private BGMManager bgmManager;
 
     void Awake()
      {
